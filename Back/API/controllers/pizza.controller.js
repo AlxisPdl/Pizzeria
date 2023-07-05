@@ -1,4 +1,4 @@
-const { Pizza } = require('../models/pizza.model');
+const Pizza = require('../models/pizza.model');
 
 module.exports.createPizza = async (req, res) => {
     try {
