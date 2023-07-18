@@ -1,4 +1,4 @@
-const { Burger } = require('../models');
+const Burger = require('../models/burger.model');
 
 module.exports.createBurger = async (req, res) => {
     try {
@@ -41,46 +41,64 @@ module.exports.getAllBurgers = async (req, res) => {
 
 module.exports.getBurgerById = async (req, res) => {
     try {
-        const burger = await Burger.findOne(req.params.id);
+        const burger = await Burger.findByPk(req.params.id);
+        const { nom, description, prix_seul, prix_menu, image } = burger;
+
         res.status(200).json({
             error: false,
-            burger
-        })
+            burger: {
+                nom,
+                description,
+                prix_seul,
+                prix_menu,
+                image
+            }
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({
             error: true,
             message: "Erreur lors de la récupération du burger",
         })
+
     }
-}
+};
 
 module.exports.updateBurger = async (req, res) => {
     try {
         const { nom, description, prix_seul, prix_menu, image } = req.body;
-        const burger = await Burger.update({
-            nom,
-            description,
-            prix_seul,
-            prix_menu,
-            image
-        }, {
-            where: {
-                id: req.params.id
-            }
-        });
-        res.status(201).json({
+
+        const burger = await Burger.findOne({ where: { id: req.params.id } });
+
+        if (!burger) {
+            return res.status(404).json({
+                error: true,
+                message: "Burger non trouvé",
+            });
+        }
+
+        const updatedData = {
+            nom: nom ? nom : burger.nom,
+            description: description ? description : burger.description,
+            prix_seul: prix_seul ? prix_seul : burger.prix_seul,
+            prix_menu: prix_menu ? prix_menu : burger.prix_menu,
+            image: image ? image : burger.image,
+        }
+
+        await burger.update(updatedData);
+
+        return res.status(200).json({
             error: false,
             message: "Burger modifié avec succès",
-        })
+        });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            error: true,
-            message: "Erreur lors de la modification du burger",
-        })
-    }
-}
+            console.error(error);
+            res.status(500).json({
+                error: true,
+                message: "Erreur lors de la modification du burger",
+            });
+        }
+    };
 
 module.exports.deleteBurger = async (req, res) => {
     try {

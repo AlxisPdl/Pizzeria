@@ -9,13 +9,13 @@ router.get('/', paniniController.getAllPaninis);
 router.get('/:id', paniniController.getPaniniById);
 
 // create new panini
-router.post('/', paniniController.createPanini);
+router.post('/create', paniniController.createPanini);
 
 // update panini by ID
-router.put('/:id', paniniController.updatePanini);
+router.put('/update/:id', paniniController.updatePanini);
 
 // delete panini by ID
-router.delete('/:id', paniniController.deletePanini);
+router.delete('/delete/:id', paniniController.deletePanini);
 
 module.exports = router;
 

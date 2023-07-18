@@ -9,12 +9,12 @@ router.get('/', texmexController.getAllTexmexs);
 router.get('/:id', texmexController.getTexmexById);
 
 // create new texmex
-router.post('/', texmexController.createTexmex);
+router.post('/create', texmexController.createTexmex);
 
 // update texmex by ID
-router.put('/:id', texmexController.updateTexmex);
+router.put('/update/:id', texmexController.updateTexmex);
 
 // delete texmex by ID
-router.delete('/:id', texmexController.deleteTexmex);
+router.delete('/delete/:id', texmexController.deleteTexmex);
 
 module.exports = router;

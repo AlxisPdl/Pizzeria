@@ -9,12 +9,12 @@ router.get('/', saladeController.getAllSalades);
 router.get('/:id', saladeController.getSaladeById);
 
 // create new salade
-router.post('/', saladeController.createSalade);
+router.post('/create', saladeController.createSalade);
 
 // update salade by ID
-router.put('/:id', saladeController.updateSalade);
+router.put('/update/:id', saladeController.updateSalade);
 
 // delete salade by ID
-router.delete('/:id', saladeController.deleteSalade);
+router.delete('/delete/:id', saladeController.deleteSalade);
 
 module.exports = router;

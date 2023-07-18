@@ -1,4 +1,4 @@
-const { Panini } = require('../models/panini.model');
+const Panini = require('../models/panini.model');
 
 module.exports.createPanini = async (req, res) => {
     try {
@@ -40,11 +40,18 @@ module.exports.getAllPaninis = async (req, res) => {
 
 module.exports.getPaniniById = async (req, res) => {
     try {
-        const panini = await Panini.findOne(req.params.id);
+        const panini = await Panini.findByPk(req.params.id);
+        const { nom, description, prix, image } = panini;
+
         res.status(200).json({
             error: false,
-            panini
-        })
+            panini: {
+                nom,
+                description,
+                prix,
+                image
+            }
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({
@@ -52,17 +59,30 @@ module.exports.getPaniniById = async (req, res) => {
             message: "Erreur lors de la récupération du panini",
         })
     }
-}
+};
 
 module.exports.updatePanini = async (req, res) => {
     try {
         const { nom, description, prix, image } = req.body;
-        const panini = await Panini.update(req.params.id, {
-            nom,
-            description,
-            prix,
-            image
-        });
+
+        const panini = await Panini.findOne({ where: { id: req.params.id } });
+
+        if (!panini) {
+            return res.status(404).json({
+                error: true,
+                message: "Panini non trouvé",
+            });
+        }
+
+        const updatedData = {
+            nom: nom ? nom : panini.nom,
+            description: description ? description : panini.description,
+            prix: prix ? prix : panini.prix,
+            image: image ? image : panini.image
+        };
+
+        await panini.update(updatedData);
+
         res.status(201).json({
             error: false,
             message: "Panini modifié avec succès",
@@ -76,19 +96,35 @@ module.exports.updatePanini = async (req, res) => {
     }
 }
 
+
 module.exports.deletePanini = async (req, res) => {
     try {
-        const panini = await Panini.destroy(req.params.id);
-        res.status(201).json({
-            error: false,
-            message: "Panini supprimé avec succès",
-        })
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            error: true,
-            message: "Erreur lors de la suppression du panini",
-        })
-    }
-}
+        const { id } = req.params;
+        const panini = await Panini.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+
+        if (panini) {
+            await panini.destroy();
+            res.status(200).json({
+                error: false,
+                message: "Panini supprimé avec succès",
+            });
+        } else {
+            res.status(404).json({
+                error: true,
+                message: "Panini non trouvé",
+            });
+        }
+        } catch (error) {
+                console.error(error);
+                res.status(500).json({
+                    error: true,
+                    message: "Erreur lors de la suppression du panini",
+                });
+        }  
+};
+
 

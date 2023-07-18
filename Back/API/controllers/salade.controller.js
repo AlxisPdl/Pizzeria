@@ -1,9 +1,9 @@
-const { salades } = require('../models');
+const Salade = require('../models/salade.model');
 
 module.exports.createSalade = async (req, res) => {
     try {
         const { nom, description, prix, image } = req.body;
-        const salade = await salades.create({
+        const salade = await Salade.create({
             nom,
             description,
             prix,
@@ -24,7 +24,7 @@ module.exports.createSalade = async (req, res) => {
 
 module.exports.getAllSalades = async (req, res) => {
     try {
-        const salades = await salades.findAll();
+        const salades = await Salade.findAll();
         res.status(200).json({
             error: false,
             salades
@@ -40,11 +40,18 @@ module.exports.getAllSalades = async (req, res) => {
 
 module.exports.getSaladeById = async (req, res) => {
     try {
-        const salade = await salades.findOne(req.params.id);
+        const salade = await Salade.findByPk(req.params.id);
+        const { nom, description, prix, image } = salade;
+
         res.status(200).json({
             error: false,
-            salade
-        })
+            salade: {
+                nom,
+                description,
+                prix,
+                image
+            }
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({
@@ -52,20 +59,33 @@ module.exports.getSaladeById = async (req, res) => {
             message: "Erreur lors de la récupération de la salade",
         })
     }
-}
+};
 
 module.exports.updateSalade = async (req, res) => {
     try {
         const { nom, description, prix, image } = req.body;
-        const salade = await salades.update(req.params.id, {
-            nom,
-            description,
-            prix,
-            image
-        });
-        res.status(200).json({
+
+        const salade = await Salade.findOne({ where: { id: req.params.id } });
+
+        if (!salade) {
+            return res.status(404).json({
+                error: true,
+                message: "salade non trouvé",
+            });
+        }
+
+        const updatedData = {
+            nom: nom ? nom : salade.nom,
+            description: description ? description : salade.description,
+            prix: prix ? prix : salade.prix,
+            image: image ? image : salade.image
+        };
+
+        await salade.update(updatedData);
+
+        res.status(201).json({
             error: false,
-            message: "Salade modifiée avec succès",
+            message: "Salade modifié avec succès",
         })
     } catch (error) {
         console.error(error);
@@ -76,19 +96,35 @@ module.exports.updateSalade = async (req, res) => {
     }
 }
 
+
 module.exports.deleteSalade = async (req, res) => {
     try {
-        const salade = await salades.destroy(req.params.id);
-        res.status(200).json({
-            error: false,
-            message: "Salade supprimée avec succès",
-        })
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            error: true,
-            message: "Erreur lors de la suppression de la salade",
-        })
-    }
-}
+        const { id } = req.params;
+        const salade = await Salade.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+
+        if (salade) {
+            await salade.destroy();
+            res.status(200).json({
+                error: false,
+                message: "Salade supprimé avec succès",
+            });
+        } else {
+            res.status(404).json({
+                error: true,
+                message: "Salade non trouvé",
+            });
+        }
+        } catch (error) {
+                console.error(error);
+                res.status(500).json({
+                    error: true,
+                    message: "Erreur lors de la suppression de la salade",
+                });
+        }  
+};
+
 

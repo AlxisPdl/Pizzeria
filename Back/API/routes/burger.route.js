@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const burgerController = require('../controllers/burger.controller');
+const burgerController = require('../controllers/burger.controller.js');
 
 // get all burgers
 router.get('/', burgerController.getAllBurgers);
@@ -9,12 +9,12 @@ router.get('/', burgerController.getAllBurgers);
 router.get('/:id', burgerController.getBurgerById);
 
 // create new burger
-router.post('/', burgerController.createBurger);
+router.post('/create', burgerController.createBurger);
 
 // update burger by ID
-router.put('/:id', burgerController.updateBurger);
+router.put('/update/:id', burgerController.updateBurger);
 
 // delete burger by ID
-router.delete('/:id', burgerController.deleteBurger);
+router.delete('/delete/:id', burgerController.deleteBurger);
 
 module.exports = router;

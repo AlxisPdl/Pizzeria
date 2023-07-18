@@ -1,9 +1,9 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../config/database.config.js');
 
-class Burgers extends Model {};
+class Burger extends Model {};
 
-Burgers.init({
+Burger.init({
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -38,8 +38,8 @@ Burgers.init({
 
 }, {
     sequelize,
-    modelName: 'Pizza',
-    tableName: 'pizzas'
+    modelName: 'Burger',
+    tableName: 'burgers'
 });
 
-module.exports = Burgers;
+module.exports = Burger;

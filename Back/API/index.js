@@ -12,6 +12,10 @@ app.use(cors())
 
 app.use('/users', require('./routes/users.route.js'));
 app.use('/pizzas', require('./routes/pizza.route.js'));
+app.use('/burgers', require('./routes/burger.route.js'));
+app.use('/paninis', require('./routes/panini.route.js'));
+app.use('/salades', require('./routes/salade.route.js'));  
+app.use('/texmex', require('./routes/texmex.route.js'));
 
 app.post('/contact', async (req, res) => {
 
