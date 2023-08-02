@@ -116,12 +116,12 @@ module.exports.deleteTexmex = async (req, res) => {
                 message: "Texmex non trouvé",
             })
         }
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({
-               error: true,
-               message: "Erreur lors de la suppression du texmex",
-        });  
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            error: true,
+            message: "Erreur lors de la suppression du texmex",
+        });
     }
 };
 
