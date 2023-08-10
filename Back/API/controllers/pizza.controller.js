@@ -9,7 +9,7 @@ module.exports.createPizza = async (req, res) => {
             prix_petite,
             prix_moyenne,
             prix_grande,
-            image
+            image,
         });
 
         res.status(201).json({

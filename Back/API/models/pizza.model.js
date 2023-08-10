@@ -82,7 +82,7 @@ Pizza.init(
       allowNull: false,
     },
     image: {
-      type: DataTypes.STRING, // Utiliser le type STRING pour stocker l'URL de l'image
+      type: DataTypes.BLOB,
       allowNull: true,
     },
     createdAt: {
