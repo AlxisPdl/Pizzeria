@@ -1,0 +1,285 @@
+* {
+    color: white;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 25px;
+
+    img {
+        width: 150px;
+        height: fit-content;
+    }
+}
+
+.contact_phone {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 25px;
+
+    a {
+        color: white;
+        text-decoration: none;
+
+        &:hover {
+            color: purple;
+        }
+
+    }
+}
+
+.horaire {
+    margin-top: 50px;
+
+    p {
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+}
+
+
+.adresse {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 25px;
+
+    & a {
+        text-decoration: none;
+
+        &:hover {
+            color: purple;
+        }
+    }
+}
+
+.paiement {
+    margin-top: 40px;
+    text-align: center;
+            
+    img {
+        border: 3px solid rgba(255, 255, 255, 0.678);
+        padding: 5px;
+        border-radius: 55px;
+        background-color: rgba(255, 255, 255, 0.623);
+        width: 70px;
+        margin: 10px;
+        flex-direction: space-between;
+        
+        
+
+     
+    } 
+}
+
+.formulaire {
+    margin-top: 50px;
+    
+    &__text {
+        font-size: 16px;
+        text-align: center;
+    }
+    
+    &__form {
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 25px;
+        border: 2px solid rgba(255, 255, 255, 0.664);
+        border-radius: 5px;
+        margin: 25px ;
+        padding: 25px;
+        background-color: #74019ecb;
+        box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+
+        input {
+            margin: auto;
+            width: 99%;
+            height: 30px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.664);
+            background-color: rgba(84, 1, 95, 0.466);
+
+        }
+
+        textarea {
+            margin: auto;
+            width: 99%;
+            height: 100px;
+            margin-bottom: 10px;
+            background-color: rgba(84, 1, 95, 0.466);
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.664);
+
+        }
+
+        button {
+            width: 100px;
+            height: 30px;
+            background-color: rgba(84, 1, 95, 0.466);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.664);
+            border-radius: 5px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.664);
+                color: black;
+            }
+
+        }
+
+    }
+}
+
+@media (min-width: 780px) {
+    .contact_phone {
+        font-size: 26px
+    }
+
+    .horaire {
+        p {
+            font-size: 26px;
+        }
+
+        h2 {
+            font-size: 30px;
+        }
+    }
+
+    .adresse {
+        a {
+            font-size: 26px;
+        }
+
+        h2 {
+            font-size: 30px;
+        }
+    }
+
+    .paiement {
+        
+        h2 {
+            font-size: 30px;
+
+        }
+
+        img {
+            width: 100px;
+            }
+
+    }
+
+    .formulaire {
+        &__text {
+            font-size: 26px;
+        }
+
+        &__form {
+            input {
+                height: 55px;
+                font-size: 26px;
+            }
+
+            label {
+                font-size: 26px;
+            }
+        }
+
+        button {
+            width: 150px;
+            height: 55px;
+            font-size: 26px;
+        }
+    }
+
+}
+
+@media (min-width: 1085px) {
+    .contact_phone {
+        font-size: 36px
+    }
+
+    .horaire {
+        p {
+            font-size: 36px;
+        }
+
+        h2 {
+            font-size: 40px;
+        }
+    }
+
+    .adresse {
+        a {
+            font-size: 36px;
+        }
+
+        h2 {
+            font-size: 40px;
+        }
+    }
+
+    .paiement {
+        h2 {
+            font-size: 40px;
+        }
+        img {
+            width: 150px;
+            margin: 25px;
+
+        }
+    }
+
+    .formulaire {
+        max-width: 1200px;
+        margin: auto;
+
+        &__text {
+            font-size: 36px;
+        }
+
+        &__form {
+
+            input {
+                flex-direction: row;
+                height: 55px;
+                font-size: 36px;
+            }
+
+            label {
+                font-size: 36px;
+            }
+
+            
+
+        }
+        
+
+
+        button {
+            width: 150px;
+            height: 55px;
+            font-size: 36px;
+        }
+    }
+
+    .modal__contenant {
+        display: flex;
+        flex-direction: column;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .modal__title {
+        font-size: 36px;
+    }
+
+    .modal__text {
+            text-align: center;
+     
+    }
+}
